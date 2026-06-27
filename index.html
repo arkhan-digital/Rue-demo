@@ -508,6 +508,71 @@
     /* Menu mobile plus large */
     .mobile-menu{width:84vw;}
   }
+
+  /* ===== ESPACE ADMIN ===== */
+  .admin-link{cursor:pointer;}
+  .adm{position:fixed;inset:0;z-index:200;background:var(--bg);display:none;flex-direction:column;}
+  .adm.open{display:flex;}
+  .adm-top{display:flex;align-items:center;justify-content:space-between;padding:18px 26px;border-bottom:1px solid var(--line);background:var(--ink);color:var(--bg);}
+  .adm-top .t{font-size:14px;letter-spacing:.14em;text-transform:uppercase;}
+  .adm-top .t b{color:var(--accent);}
+  .adm-top .acts{display:flex;gap:10px;align-items:center;}
+  .adm-top button{background:none;border:1px solid rgba(243,241,236,.3);color:var(--bg);padding:8px 14px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border-radius:2px;}
+  .adm-top button:hover{background:rgba(243,241,236,.12);}
+  .adm-top .close{font-size:20px;border:none;padding:4px 10px;}
+  .adm-tabs{display:flex;gap:0;border-bottom:1px solid var(--line);background:var(--bg-alt);}
+  .adm-tab{padding:15px 24px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;color:var(--ink-soft);border-bottom:2px solid transparent;}
+  .adm-tab.active{color:var(--ink);border-color:var(--accent);background:var(--bg);}
+  .adm-body{flex:1;overflow-y:auto;padding:30px 26px 60px;}
+  .adm-wrap{max-width:760px;margin:0 auto;}
+  .adm-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:12px;}
+  .adm-bar h3{font-size:20px;}
+  .adm-count{font-size:12px;color:var(--ink-soft);}
+
+  /* liste produits admin */
+  .adm-list{display:flex;flex-direction:column;gap:10px;}
+  .adm-row{display:flex;align-items:center;gap:14px;border:1px solid var(--line);padding:10px;background:var(--bg);}
+  .adm-row img{width:52px;height:66px;object-fit:cover;background:var(--bg-alt);flex-shrink:0;}
+  .adm-row .ri{flex:1;min-width:0;}
+  .adm-row .rn{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .adm-row .rp{font-size:12px;color:var(--ink-soft);}
+  .adm-row .rtag{display:inline-block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;background:var(--accent);color:#fff;padding:2px 7px;margin-top:4px;}
+  .adm-row .rb{display:flex;gap:8px;flex-shrink:0;}
+  .adm-row .rb button{border:1px solid var(--line);background:#fff;padding:8px 12px;font-size:11px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;}
+  .adm-row .rb button:hover{border-color:var(--ink);}
+  .adm-row .rb .del:hover{background:#b23b3b;color:#fff;border-color:#b23b3b;}
+
+  /* formulaire admin */
+  .ad-field{margin-bottom:16px;}
+  .ad-field label{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px;}
+  .ad-field input,.ad-field textarea,.ad-field select{width:100%;border:1px solid var(--line);background:#fff;padding:11px 12px;font-size:14px;outline:none;font-family:inherit;}
+  .ad-field input:focus,.ad-field textarea:focus{border-color:var(--ink);}
+  .ad-field textarea{min-height:90px;resize:vertical;line-height:1.5;}
+  .ad-field .hint{font-size:11px;color:var(--ink-soft);margin-top:5px;}
+  .ad-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .ad-imgs{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .ad-drop{border:1px dashed var(--line);background:var(--bg-alt);aspect-ratio:3/4;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;text-align:center;padding:10px;position:relative;overflow:hidden;transition:.2s;}
+  .ad-drop:hover{border-color:var(--accent);}
+  .ad-drop img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .ad-drop .ph{font-size:12px;color:var(--ink-soft);z-index:1;}
+  .ad-drop .ph b{display:block;font-size:22px;margin-bottom:6px;color:var(--ink);}
+  .ad-form-actions{display:flex;gap:12px;margin-top:24px;}
+  .adm-msg{display:inline-block;margin-left:10px;font-size:12px;color:#4a8a5c;}
+
+  /* login admin */
+  .adm-login{max-width:360px;margin:8vh auto;text-align:center;}
+  .adm-login .lg{font-size:30px;font-weight:700;letter-spacing:-0.02em;margin-bottom:6px;}
+  .adm-login .lg span{color:var(--accent);}
+  .adm-login p{font-size:13px;color:var(--ink-soft);margin-bottom:24px;}
+  .adm-login input{width:100%;border:1px solid var(--line);padding:13px;font-size:15px;text-align:center;outline:none;margin-bottom:12px;}
+  .adm-login input:focus{border-color:var(--ink);}
+  .adm-login .demo-hint{font-size:11px;color:var(--ink-soft);margin-top:16px;background:var(--bg-alt);padding:9px;border-radius:3px;}
+
+  @media(max-width:600px){
+    .ad-2,.ad-imgs{grid-template-columns:1fr;}
+    .adm-row .rb button{padding:8px 10px;}
+    .adm-body{padding:22px 18px 50px;}
+  }
 </style>
 </head>
 <body>
@@ -626,7 +691,7 @@
 <!-- ===== STRIP ===== -->
 <section class="strip">
   <div class="wrap strip-grid">
-    <div class="strip-item"><h4>Livraison 48h</h4><p>Offerte dès 150€ d'achat</p></div>
+    <div class="strip-item"><h4>Livraison 48h</h4><p id="ship-strip-p">Offerte dès 150€ d'achat</p></div>
     <div class="strip-item"><h4>Retours 30 jours</h4><p>Simples et gratuits</p></div>
     <div class="strip-item"><h4>Éditions limitées</h4><p>Façonnées main, en petites séries</p></div>
     <div class="strip-item"><h4>Paiement sécurisé</h4><p>CB, Apple Pay, Paypal</p></div>
@@ -714,7 +779,7 @@
     </div>
     <div class="foot-bottom">
       <span>© 2026 RUE. · <span class="badge-demo">SITE DÉMO</span> conçu par Arkhan Digital</span>
-      <span>Toutes les données de cette page sont fictives</span>
+      <span><span class="admin-link" id="open-admin" style="text-decoration:underline;">Espace administration</span> · Données fictives</span>
     </div>
   </div>
 </footer>
@@ -803,8 +868,11 @@
   <div class="co-box" id="co-box"></div>
 </div>
 
+<!-- ===== ESPACE ADMIN ===== -->
+<div class="adm" id="adm"></div>
+
 <script>
-const PRODUCTS = [
+const DEFAULT_PRODUCTS = [
   {id:'robe', name:'Robe Satinée "Champagne"', price:189, old:null, img:'assets/w-robe.jpg', model:'assets/w-model-robe.jpg', tag:'Signature', rating:4.9, reviews:128, desc:'Robe nuisette en satin de soie fluide, coupe sur le biais qui épouse la silhouette, bretelles fines réglables. Teinte champagne lumineuse.', revs:[['Camille L.','Tombé sublime, le satin est d\'une qualité rare. Je la porte autant en soirée qu\'avec un blazer.'],['Inès M.','Reçue en 2 jours, parfaitement emballée. La couleur est encore plus belle en vrai.']]},
   {id:'blazer', name:'Blazer Structuré "Noir"', price:229, old:null, img:'assets/w-blazer.jpg', model:'assets/w-model-blazer.jpg', tag:'Best-seller', rating:4.8, reviews:204, desc:'Blazer oversize taillé dans une laine froide, épaules structurées, boutonnage croisé. Un essentiel couture, porté à même la peau ou sur un haut.', revs:[['Sarah B.','La coupe est impeccable, structure sans rigidité. Mon meilleur achat de l\'année.'],['Léa T.','Taille un peu grand, je recommande de prendre en dessous. Sinon la matière est divine.']]},
   {id:'jupe', name:'Jupe Plissée "Or"', price:139, old:175, img:'assets/w-jupe.jpg', model:'assets/w-model-jupe.jpg', tag:'-20%', rating:4.7, reviews:86, desc:'Jupe mi-longue plissée en satin camel doré, taille haute, mouvement fluide. Les plis captent la lumière à chaque pas.', revs:[['Manon R.','Le mouvement est hypnotique, les plis tiennent parfaitement même après lavage.'],['Chloé D.','Élégante et confortable, la taille haute affine la silhouette.']]},
@@ -816,16 +884,43 @@ const SIZES = ['XS','S','M','L','XL'];
 const PROMOS = {'RUE10':10,'BIENVENUE':10};
 let promo = JSON.parse(localStorage.getItem('rue_promo')||'null');
 let wishlist = JSON.parse(localStorage.getItem('rue_wishlist')||'[]');
-const FREE_SHIP = 150;
+
+// ===== Catalogue éditable depuis l'espace admin (stocké dans le navigateur) =====
+function loadCatalog(){
+  try{const s=localStorage.getItem('rue_catalog'); if(s){const a=JSON.parse(s); if(Array.isArray(a)&&a.length) return a;}}catch(e){}
+  return JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+}
+function saveCatalog(){
+  try{ localStorage.setItem('rue_catalog', JSON.stringify(PRODUCTS)); }
+  catch(e){ showToast("Stockage plein : préférez des URLs d'images plutôt que des uploads lourds"); }
+}
+let PRODUCTS = loadCatalog();
+
+// ===== Réglages du site éditables depuis l'espace admin =====
+const DEFAULT_SETTINGS = {
+  brand:'RUE.',
+  heroTitle1:"L'élégance,", heroTitle2:'sans effort.',
+  heroSub:"Satins fluides, tailleurs structurés, palette chaude. Une garde-robe couture pensée pour la femme qui n'a rien à prouver, seulement à rayonner.",
+  freeShip:150, adminPass:'rue2026'
+};
+function loadSettings(){
+  try{const s=localStorage.getItem('rue_settings'); if(s) return Object.assign({}, DEFAULT_SETTINGS, JSON.parse(s));}catch(e){}
+  return Object.assign({}, DEFAULT_SETTINGS);
+}
+function saveSettings(){ localStorage.setItem('rue_settings', JSON.stringify(SETTINGS)); }
+let SETTINGS = loadSettings();
+let FREE_SHIP = SETTINGS.freeShip;
 
 let cart = JSON.parse(localStorage.getItem('rue_cart')||'[]');
-// Sécurité : on retire les articles/favoris dont le produit n'existe plus
-// (ex. anciens IDs d'une version précédente du catalogue).
-const VALID_IDS = new Set(PRODUCTS.map(p=>p.id));
-cart = cart.filter(it=>it && VALID_IDS.has(it.id));
-wishlist = wishlist.filter(id=>VALID_IDS.has(id));
-localStorage.setItem('rue_cart', JSON.stringify(cart));
-localStorage.setItem('rue_wishlist', JSON.stringify(wishlist));
+// Sécurité : on retire les articles/favoris dont le produit n'existe plus.
+function sanitizeStored(){
+  const ids = new Set(PRODUCTS.map(p=>p.id));
+  cart = cart.filter(it=>it && ids.has(it.id));
+  wishlist = wishlist.filter(id=>ids.has(id));
+  localStorage.setItem('rue_cart', JSON.stringify(cart));
+  localStorage.setItem('rue_wishlist', JSON.stringify(wishlist));
+}
+sanitizeStored();
 
 function fmt(n){return n.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';}
 
@@ -866,7 +961,7 @@ function renderGrid(){
       </div>
       <div class="card-name">${p.name}</div>
       <div class="card-price">${p.old?`<span class="old">${fmt(p.old)}</span>`:''}${fmt(p.price)}</div>
-      <div class="card-rating">${stars(p.rating)}<span>${p.rating.toFixed(1)} · ${p.reviews} avis</span></div>
+      ${p.rating?`<div class="card-rating">${stars(p.rating)}<span>${(+p.rating).toFixed(1)} · ${p.reviews||0} avis</span></div>`:''}
     </div>
   `).join('');
   grid.querySelectorAll('.card').forEach(c=>{
@@ -895,7 +990,7 @@ function openModal(id){
     <div class="modal-info">
       <span class="eyebrow">${p.tag||'RUE. Couture'}</span>
       <h2>${p.name}</h2>
-      <div class="modal-rating">${stars(p.rating)}<span>${p.rating.toFixed(1)} · ${p.reviews} avis</span></div>
+      ${p.rating?`<div class="modal-rating">${stars(p.rating)}<span>${(+p.rating).toFixed(1)} · ${p.reviews||0} avis</span></div>`:''}
       <div class="modal-price">${p.old?`<span class="old" style="text-decoration:line-through;opacity:.5;margin-right:8px;">${fmt(p.old)}</span>`:''}${fmt(p.price)}</div>
       <p class="modal-desc">${p.desc}</p>
       <div class="size-head">
@@ -910,10 +1005,10 @@ function openModal(id){
         <button class="btn btn-ghost btn-block" data-wish="${p.id}" id="modal-wish">${isWished(p.id)?'♥ Dans vos favoris':'♡ Ajouter aux favoris'}</button>
         <span class="stock-note">En stock · Expédié sous 24-48h · Retours gratuits 30 j</span>
       </div>
-      <div class="reviews">
-        <h4>Avis clientes (${p.reviews})</h4>
+      ${(p.revs&&p.revs.length)?`<div class="reviews">
+        <h4>Avis clientes (${p.reviews||p.revs.length})</h4>
         ${p.revs.map(r=>`<div class="review"><div class="rh">${stars(5)}<span class="rn">${r[0]}</span><span class="verified">✓ Achat vérifié</span></div><p>${r[1]}</p></div>`).join('')}
-      </div>
+      </div>`:''}
       <div class="related">
         <h4>Vous aimerez aussi</h4>
         <div class="related-grid">
@@ -1242,6 +1337,211 @@ document.querySelectorAll('.ed-item').forEach(el=>{
   }
 });
 
+/* ===== RÉGLAGES DU SITE (appliqués au DOM) ===== */
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function brandHtml(b){
+  b=String(b||'RUE.');
+  if(b.endsWith('.')) return esc(b.slice(0,-1))+'<span style="color:var(--accent);">.</span>';
+  return esc(b);
+}
+function applySettings(){
+  FREE_SHIP = SETTINGS.freeShip;
+  document.querySelectorAll('.logo, .mm-head .logo').forEach(el=>{el.innerHTML=brandHtml(SETTINGS.brand);});
+  const fl=document.querySelector('.foot-logo'); if(fl) fl.textContent=SETTINGS.brand;
+  const h1=document.querySelector('.hero-copy h1'); if(h1) h1.innerHTML=esc(SETTINGS.heroTitle1)+'<br>'+esc(SETTINGS.heroTitle2);
+  const hp=document.querySelector('.hero-copy p'); if(hp) hp.textContent=SETTINGS.heroSub;
+  const sp=document.getElementById('ship-strip-p'); if(sp) sp.textContent=`Offerte dès ${SETTINGS.freeShip}€ d'achat`;
+  document.querySelectorAll('.marquee span').forEach(s=>{if(s.textContent.includes('LIVRAISON OFFERTE')) s.textContent=`LIVRAISON OFFERTE DÈS ${SETTINGS.freeShip}€`;});
+  document.title = SETTINGS.brand+' · Maison de couture parisienne';
+}
+
+/* ===== ESPACE ADMIN ===== */
+let admTab='produits', admEditId=null, admDraft={};
+function openAdmin(){document.getElementById('adm').classList.add('open');document.body.style.overflow='hidden';admTab='produits';admEditId=null;admDraft={};renderAdmin();}
+function closeAdmin(){document.getElementById('adm').classList.remove('open');document.body.style.overflow='';}
+function refreshStore(){saveCatalog();sanitizeStored();applySettings();renderGrid();renderCart();renderWishCount();}
+
+function fileToDataURL(file,maxW,cb){
+  const fr=new FileReader();
+  fr.onload=()=>{const img=new Image();img.onload=()=>{
+    let w=img.width,h=img.height;
+    if(w>maxW){h=Math.round(h*maxW/w);w=maxW;}
+    const c=document.createElement('canvas');c.width=w;c.height=h;
+    c.getContext('2d').drawImage(img,0,0,w,h);
+    cb(c.toDataURL('image/jpeg',0.82));
+  };img.src=fr.result;};
+  fr.readAsDataURL(file);
+}
+function slugId(name){
+  let base=name.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'').slice(0,22)||'produit';
+  let id=base,n=1; while(PRODUCTS.some(p=>p.id===id)) id=base+'-'+(++n); return id;
+}
+
+function renderAdmin(){
+  const adm=document.getElementById('adm');
+  if(!sessionStorage.getItem('rue_admin')){
+    adm.innerHTML=`<div class="adm-body"><div class="adm-login">
+      <div class="lg">${brandHtml(SETTINGS.brand)}</div>
+      <p>Espace administration</p>
+      <form id="adm-login-form" autocomplete="off">
+        <input type="password" id="adm-pass" placeholder="Mot de passe">
+        <button class="btn btn-block" type="submit">Se connecter</button>
+      </form>
+      <div style="margin-top:14px;"><span class="admin-link" id="adm-login-close" style="font-size:12px;color:var(--ink-soft);text-decoration:underline;">Retour au site</span></div>
+      <div class="demo-hint">Démo · mot de passe : <b>${esc(SETTINGS.adminPass)}</b></div>
+    </div></div>`;
+    document.getElementById('adm-login-form').addEventListener('submit',e=>{
+      e.preventDefault();
+      if(document.getElementById('adm-pass').value===SETTINGS.adminPass){sessionStorage.setItem('rue_admin','1');renderAdmin();}
+      else showToast('Mot de passe incorrect');
+    });
+    document.getElementById('adm-login-close').addEventListener('click',closeAdmin);
+    return;
+  }
+  adm.innerHTML=`
+    <div class="adm-top">
+      <span class="t">Espace <b>administration</b></span>
+      <div class="acts">
+        <button id="adm-view">Voir le site</button>
+        <button id="adm-logout">Déconnexion</button>
+        <button class="close" id="adm-close">×</button>
+      </div>
+    </div>
+    <div class="adm-tabs">
+      <div class="adm-tab ${admTab==='produits'?'active':''}" data-tab="produits">Produits</div>
+      <div class="adm-tab ${admTab==='reglages'?'active':''}" data-tab="reglages">Réglages du site</div>
+    </div>
+    <div class="adm-body"><div class="adm-wrap" id="adm-wrap"></div></div>`;
+  document.getElementById('adm-view').onclick=closeAdmin;
+  document.getElementById('adm-close').onclick=closeAdmin;
+  document.getElementById('adm-logout').onclick=()=>{sessionStorage.removeItem('rue_admin');renderAdmin();};
+  adm.querySelectorAll('.adm-tab').forEach(t=>t.onclick=()=>{admTab=t.dataset.tab;renderAdmin();});
+  if(admTab==='produits') renderAdmProducts(); else renderAdmSettings();
+}
+
+function renderAdmProducts(){
+  const w=document.getElementById('adm-wrap');
+  w.innerHTML=`
+    <div class="adm-bar">
+      <div><h3>Produits</h3><div class="adm-count">${PRODUCTS.length} produit(s) en ligne</div></div>
+      <div style="display:flex;gap:10px;">
+        <button class="btn btn-ghost" id="adm-reset">Réinitialiser</button>
+        <button class="btn" id="adm-add">+ Ajouter un produit</button>
+      </div>
+    </div>
+    <div class="adm-list">
+      ${PRODUCTS.map(p=>`
+        <div class="adm-row">
+          <img src="${p.img}" alt="">
+          <div class="ri"><div class="rn">${esc(p.name)}</div><div class="rp">${fmt(p.price)}${p.old?' · ancien '+fmt(p.old):''}</div>${p.tag?`<span class="rtag">${esc(p.tag)}</span>`:''}</div>
+          <div class="rb"><button data-edit="${p.id}">Modifier</button><button class="del" data-del="${p.id}">Supprimer</button></div>
+        </div>`).join('')}
+    </div>`;
+  document.getElementById('adm-add').onclick=()=>{admEditId=null;admDraft={};renderAdmForm();};
+  document.getElementById('adm-reset').onclick=()=>{if(confirm("Réinitialiser le catalogue aux produits d'origine ? Vos ajouts seront perdus.")){PRODUCTS=JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));refreshStore();renderAdmProducts();showToast('Catalogue réinitialisé');}};
+  w.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>{admEditId=b.dataset.edit;const p=PRODUCTS.find(x=>x.id===admEditId);admDraft={img:p.img,model:p.model};renderAdmForm();});
+  w.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{if(confirm('Supprimer ce produit ?')){PRODUCTS=PRODUCTS.filter(x=>x.id!==b.dataset.del);refreshStore();renderAdmProducts();showToast('Produit supprimé');}});
+}
+
+function dropHtml(key,label,val){
+  return `<div class="ad-field"><label>${label}</label>
+    <div class="ad-drop" data-drop="${key}">${val?`<img src="${val}">`:`<div class="ph"><b>+</b>Cliquer pour choisir<br>ou glisser une image</div>`}</div>
+    <input type="file" accept="image/*" data-file="${key}" style="display:none;">
+    <input type="text" class="drop-url" data-url="${key}" value="${val&&val.indexOf('data:')!==0?esc(val):''}" placeholder="ou coller une URL d'image" style="margin-top:8px;width:100%;border:1px solid var(--line);padding:9px 11px;font-size:13px;outline:none;">
+  </div>`;
+}
+function setDropPreview(d,url){d.innerHTML=url?`<img src="${url}">`:`<div class="ph"><b>+</b>Cliquer pour choisir<br>ou glisser une image</div>`;}
+function bindDrops(){
+  document.querySelectorAll('.ad-drop').forEach(d=>{
+    const key=d.dataset.drop, file=document.querySelector(`[data-file="${key}"]`);
+    d.onclick=()=>file.click();
+    file.onchange=()=>{if(file.files[0])fileToDataURL(file.files[0],850,url=>{admDraft[key]=url;setDropPreview(d,url);const u=document.querySelector(`[data-url="${key}"]`);if(u)u.value='';});};
+    d.ondragover=e=>{e.preventDefault();};
+    d.ondrop=e=>{e.preventDefault();const f=e.dataTransfer.files[0];if(f)fileToDataURL(f,850,url=>{admDraft[key]=url;setDropPreview(d,url);});};
+  });
+  document.querySelectorAll('.drop-url').forEach(u=>{u.oninput=()=>{const key=u.dataset.url,v=u.value.trim();admDraft[key]=v;setDropPreview(document.querySelector(`[data-drop="${key}"]`),v);};});
+}
+function renderAdmForm(){
+  const w=document.getElementById('adm-wrap');
+  const p=admEditId?PRODUCTS.find(x=>x.id===admEditId):{};
+  w.innerHTML=`
+    <div class="adm-bar"><h3>${admEditId?'Modifier le produit':'Nouveau produit'}</h3><button class="btn btn-ghost" id="adm-back">← Retour</button></div>
+    <div class="ad-imgs">
+      ${dropHtml('img','Photo principale *',admDraft.img||'')}
+      ${dropHtml('model','Photo portée (optionnel)',admDraft.model||'')}
+    </div>
+    <div class="ad-field" style="margin-top:6px;"><label>Nom du produit *</label><input id="f-name" value="${esc(p.name||'')}" placeholder="Robe en soie « Aurore »"></div>
+    <div class="ad-2">
+      <div class="ad-field"><label>Prix (€) *</label><input id="f-price" type="number" step="0.01" value="${p.price!=null?p.price:''}" placeholder="189"></div>
+      <div class="ad-field"><label>Ancien prix (€)</label><input id="f-old" type="number" step="0.01" value="${p.old||''}" placeholder="vide si pas de promo"></div>
+    </div>
+    <div class="ad-2">
+      <div class="ad-field"><label>Étiquette / badge</label><input id="f-tag" value="${esc(p.tag||'')}" placeholder="Nouveau, Best-seller, -20%…"></div>
+      <div class="ad-field"><label>Note /5 (optionnel)</label><input id="f-rating" type="number" step="0.1" min="0" max="5" value="${p.rating||''}" placeholder="ex : 4.8"></div>
+    </div>
+    <div class="ad-field"><label>Nombre d'avis (optionnel)</label><input id="f-reviews" type="number" value="${p.reviews||''}" placeholder="ex : 86"></div>
+    <div class="ad-field"><label>Description</label><textarea id="f-desc" placeholder="Matière, coupe, détails, conseils de style…">${esc(p.desc||'')}</textarea></div>
+    <div class="ad-form-actions">
+      <button class="btn" id="adm-save">${admEditId?'Enregistrer':'Ajouter au catalogue'}</button>
+      <button class="btn btn-ghost" id="adm-cancel">Annuler</button>
+      <span class="adm-msg" id="adm-msg"></span>
+    </div>`;
+  document.getElementById('adm-back').onclick=renderAdmProducts;
+  document.getElementById('adm-cancel').onclick=renderAdmProducts;
+  document.getElementById('adm-save').onclick=saveProductFromForm;
+  bindDrops();
+}
+function saveProductFromForm(){
+  const g=id=>document.getElementById(id);
+  const name=g('f-name').value.trim();
+  if(!name){showToast('Le nom est obligatoire');return;}
+  const price=parseFloat(g('f-price').value);
+  if(!(price>=0)){showToast('Indiquez un prix valide');return;}
+  if(!admDraft.img){showToast('Ajoutez au moins une photo');return;}
+  const oldv=parseFloat(g('f-old').value), ratingv=parseFloat(g('f-rating').value);
+  const data={
+    name, price,
+    old:(oldv>0&&oldv>price)?oldv:null,
+    tag:g('f-tag').value.trim()||null,
+    desc:g('f-desc').value.trim(),
+    img:admDraft.img, model:admDraft.model||admDraft.img,
+    rating:(ratingv>0)?Math.min(5,ratingv):undefined,
+    reviews:(ratingv>0)?(parseInt(g('f-reviews').value)||0):undefined
+  };
+  if(admEditId){const i=PRODUCTS.findIndex(p=>p.id===admEditId);PRODUCTS[i]=Object.assign({},PRODUCTS[i],data);}
+  else{data.id=slugId(name);PRODUCTS.push(data);}
+  refreshStore(); admEditId=null; admDraft={}; renderAdmProducts(); showToast('Produit enregistré ✓');
+}
+function renderAdmSettings(){
+  const w=document.getElementById('adm-wrap');
+  w.innerHTML=`
+    <div class="adm-bar"><h3>Réglages du site</h3></div>
+    <div class="ad-field"><label>Nom de la marque</label><input id="s-brand" value="${esc(SETTINGS.brand)}"></div>
+    <div class="ad-2">
+      <div class="ad-field"><label>Titre d'accueil · ligne 1</label><input id="s-h1" value="${esc(SETTINGS.heroTitle1)}"></div>
+      <div class="ad-field"><label>Titre d'accueil · ligne 2</label><input id="s-h2" value="${esc(SETTINGS.heroTitle2)}"></div>
+    </div>
+    <div class="ad-field"><label>Sous-titre d'accueil</label><textarea id="s-sub">${esc(SETTINGS.heroSub)}</textarea></div>
+    <div class="ad-2">
+      <div class="ad-field"><label>Livraison offerte dès (€)</label><input id="s-ship" type="number" value="${SETTINGS.freeShip}"></div>
+      <div class="ad-field"><label>Mot de passe admin</label><input id="s-pass" value="${esc(SETTINGS.adminPass)}"></div>
+    </div>
+    <div class="ad-form-actions"><button class="btn" id="adm-save-set">Enregistrer les réglages</button><span class="adm-msg" id="adm-msg"></span></div>`;
+  document.getElementById('adm-save-set').onclick=()=>{
+    SETTINGS.brand=document.getElementById('s-brand').value.trim()||'RUE.';
+    SETTINGS.heroTitle1=document.getElementById('s-h1').value;
+    SETTINGS.heroTitle2=document.getElementById('s-h2').value;
+    SETTINGS.heroSub=document.getElementById('s-sub').value;
+    SETTINGS.freeShip=parseInt(document.getElementById('s-ship').value)||0;
+    SETTINGS.adminPass=document.getElementById('s-pass').value||'rue2026';
+    saveSettings(); applySettings(); renderCart();
+    document.getElementById('adm-msg').textContent='Enregistré ✓'; showToast('Réglages enregistrés ✓');
+  };
+}
+document.getElementById('open-admin').addEventListener('click',openAdmin);
+if(location.hash==='#admin') setTimeout(openAdmin,80);
+
+applySettings();
 renderGrid();
 renderCart();
 renderWishCount();
