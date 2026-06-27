@@ -1291,6 +1291,9 @@ function renderCheckout(){
         <p style="font-size:11px;color:var(--ink-soft);margin-top:20px;background:var(--bg-alt);padding:10px;border-radius:3px;">Démo, aucun paiement réel n'a été effectué.</p>
         <button class="btn btn-block" id="co-done" style="margin-top:20px;">Continuer mes achats</button>
       </div>`;
+    // Décrémentation automatique du stock pour les articles commandés
+    cart.forEach(it=>{ const pr=PRODUCTS.find(x=>x.id===it.id); if(pr && pr.stock!=null){ pr.stock=Math.max(0, pr.stock-it.qty); } });
+    saveCatalog(); renderFilters(); renderGrid();
     cart=[]; saveCart(); promo=null; localStorage.removeItem('rue_promo'); renderCart();
     coBox.querySelector('#co-done').addEventListener('click',closeCheckout);
   }
