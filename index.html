@@ -509,8 +509,28 @@
     .mobile-menu{width:84vw;}
   }
 
+  /* Filtres catalogue */
+  .filter-bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:30px;}
+  .filter-chip{padding:8px 16px;border:1px solid var(--line);background:transparent;font-size:12px;letter-spacing:.04em;cursor:pointer;border-radius:2px;transition:.2s;color:var(--ink-soft);}
+  .filter-chip:hover{border-color:var(--ink);color:var(--ink);}
+  .filter-chip.active{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+
+  /* Stock / épuisé */
+  .card-media .soldout{position:absolute;inset:0;background:rgba(243,241,236,.5);display:flex;align-items:center;justify-content:center;z-index:2;}
+  .card-media .soldout span{background:var(--ink);color:var(--bg);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:7px 16px;}
+  .card.is-out .img-pack,.card.is-out .img-model{filter:grayscale(.45);}
+  .card-stock{font-size:11px;color:#b06a2c;margin-top:5px;}
+  .modal-stocklow{font-size:12px;color:#b06a2c;margin:-4px 0 14px;}
+  .btn[disabled]{opacity:.45;cursor:not-allowed;pointer-events:none;}
+
   /* ===== ESPACE ADMIN ===== */
   .admin-link{cursor:pointer;}
+  .adm-row .ord{display:flex;flex-direction:column;gap:2px;}
+  .adm-row .ord button{border:1px solid var(--line);background:#fff;width:26px;height:21px;line-height:1;cursor:pointer;font-size:10px;padding:0;}
+  .adm-row .ord button:hover:not(:disabled){border-color:var(--ink);}
+  .adm-row .ord button:disabled{opacity:.3;cursor:default;}
+  .adm-row .rmeta{font-size:11px;color:var(--ink-soft);margin-top:3px;}
+  .ad-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
   .adm{position:fixed;inset:0;z-index:200;background:var(--bg);display:none;flex-direction:column;}
   .adm.open{display:flex;}
   .adm-top{display:flex;align-items:center;justify-content:space-between;padding:18px 26px;border-bottom:1px solid var(--line);background:var(--ink);color:var(--bg);}
@@ -550,7 +570,7 @@
   .ad-field textarea{min-height:90px;resize:vertical;line-height:1.5;}
   .ad-field .hint{font-size:11px;color:var(--ink-soft);margin-top:5px;}
   .ad-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-  .ad-imgs{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .ad-imgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:14px;}
   .ad-drop{border:1px dashed var(--line);background:var(--bg-alt);aspect-ratio:3/4;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;text-align:center;padding:10px;position:relative;overflow:hidden;transition:.2s;}
   .ad-drop:hover{border-color:var(--accent);}
   .ad-drop img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
@@ -569,7 +589,7 @@
   .adm-login .demo-hint{font-size:11px;color:var(--ink-soft);margin-top:16px;background:var(--bg-alt);padding:9px;border-radius:3px;}
 
   @media(max-width:600px){
-    .ad-2,.ad-imgs{grid-template-columns:1fr;}
+    .ad-2,.ad-3{grid-template-columns:1fr;}
     .adm-row .rb button{padding:8px 10px;}
     .adm-body{padding:22px 18px 50px;}
   }
@@ -642,8 +662,9 @@
   <div class="wrap">
     <div class="section-head">
       <h2>Collection S1</h2>
-      <a href="#shop">Tout afficher (6)</a>
+      <a href="#shop">Tout afficher</a>
     </div>
+    <div class="filter-bar" id="filter-bar"></div>
     <div class="grid" id="product-grid"></div>
   </div>
 </section>
@@ -873,12 +894,12 @@
 
 <script>
 const DEFAULT_PRODUCTS = [
-  {id:'robe', name:'Robe Satinée "Champagne"', price:189, old:null, img:'assets/w-robe.jpg', model:'assets/w-model-robe.jpg', tag:'Signature', rating:4.9, reviews:128, desc:'Robe nuisette en satin de soie fluide, coupe sur le biais qui épouse la silhouette, bretelles fines réglables. Teinte champagne lumineuse.', revs:[['Camille L.','Tombé sublime, le satin est d\'une qualité rare. Je la porte autant en soirée qu\'avec un blazer.'],['Inès M.','Reçue en 2 jours, parfaitement emballée. La couleur est encore plus belle en vrai.']]},
-  {id:'blazer', name:'Blazer Structuré "Noir"', price:229, old:null, img:'assets/w-blazer.jpg', model:'assets/w-model-blazer.jpg', tag:'Best-seller', rating:4.8, reviews:204, desc:'Blazer oversize taillé dans une laine froide, épaules structurées, boutonnage croisé. Un essentiel couture, porté à même la peau ou sur un haut.', revs:[['Sarah B.','La coupe est impeccable, structure sans rigidité. Mon meilleur achat de l\'année.'],['Léa T.','Taille un peu grand, je recommande de prendre en dessous. Sinon la matière est divine.']]},
-  {id:'jupe', name:'Jupe Plissée "Or"', price:139, old:175, img:'assets/w-jupe.jpg', model:'assets/w-model-jupe.jpg', tag:'-20%', rating:4.7, reviews:86, desc:'Jupe mi-longue plissée en satin camel doré, taille haute, mouvement fluide. Les plis captent la lumière à chaque pas.', revs:[['Manon R.','Le mouvement est hypnotique, les plis tiennent parfaitement même après lavage.'],['Chloé D.','Élégante et confortable, la taille haute affine la silhouette.']]},
-  {id:'bustier', name:'Bustier "Ivoire"', price:119, old:null, img:'assets/w-bustier.jpg', model:'assets/w-model-bustier.jpg', tag:'Nouveau', rating:4.8, reviews:51, desc:'Bustier corseté en satin ivoire, baleines structurantes, dos lacé ajustable. La pièce statement de la collection.', revs:[['Julia P.','Le maintien est parfait, le laçage dos s\'ajuste très bien. Effet waouh garanti.'],['Emma V.','Pièce forte, je l\'ai portée à un mariage, que des compliments.']]},
-  {id:'manteau', name:'Manteau Long "Camel"', price:329, old:null, img:'assets/w-manteau.jpg', model:'assets/w-model-manteau.jpg', tag:null, rating:4.9, reviews:73, desc:'Manteau long en laine vierge camel, coupe droite intemporelle, ceinture amovible. Tombé impeccable, doublure satinée.', revs:[['Victoria S.','Un investissement qui en vaut la peine, la laine est chaude et le tombé magnifique.'],['Alice G.','Intemporel. Je le garderai des années, qualité exceptionnelle.']]},
-  {id:'noire', name:'Robe Cocktail "Noire"', price:199, old:null, img:'assets/w-noire.jpg', model:'assets/w-model-noire.jpg', tag:null, rating:4.8, reviews:97, desc:'Robe de cocktail noire épaules dénudées, drapé sculptural, longueur midi. L\'élégance absolue pour les grands soirs.', revs:[['Nadia K.','Le drapé est sublime, met en valeur sans mouler. La petite robe noire idéale.'],['Sofia A.','Classe absolue. Le tissu est lourd et qualitatif, rien à redire.']]},
+  {id:'robe', name:'Robe Satinée "Champagne"', price:189, old:null, img:'assets/w-robe.jpg', model:'assets/w-model-robe.jpg', tag:'Signature', cat:'Robes', rating:4.9, reviews:128, desc:'Robe nuisette en satin de soie fluide, coupe sur le biais qui épouse la silhouette, bretelles fines réglables. Teinte champagne lumineuse.', revs:[['Camille L.','Tombé sublime, le satin est d\'une qualité rare. Je la porte autant en soirée qu\'avec un blazer.'],['Inès M.','Reçue en 2 jours, parfaitement emballée. La couleur est encore plus belle en vrai.']]},
+  {id:'blazer', name:'Blazer Structuré "Noir"', price:229, old:null, img:'assets/w-blazer.jpg', model:'assets/w-model-blazer.jpg', tag:'Best-seller', cat:'Vestes & manteaux', rating:4.8, reviews:204, desc:'Blazer oversize taillé dans une laine froide, épaules structurées, boutonnage croisé. Un essentiel couture, porté à même la peau ou sur un haut.', revs:[['Sarah B.','La coupe est impeccable, structure sans rigidité. Mon meilleur achat de l\'année.'],['Léa T.','Taille un peu grand, je recommande de prendre en dessous. Sinon la matière est divine.']]},
+  {id:'jupe', name:'Jupe Plissée "Or"', price:139, old:175, img:'assets/w-jupe.jpg', model:'assets/w-model-jupe.jpg', tag:'-20%', cat:'Jupes & pantalons', rating:4.7, reviews:86, desc:'Jupe mi-longue plissée en satin camel doré, taille haute, mouvement fluide. Les plis captent la lumière à chaque pas.', revs:[['Manon R.','Le mouvement est hypnotique, les plis tiennent parfaitement même après lavage.'],['Chloé D.','Élégante et confortable, la taille haute affine la silhouette.']]},
+  {id:'bustier', name:'Bustier "Ivoire"', price:119, old:null, img:'assets/w-bustier.jpg', model:'assets/w-model-bustier.jpg', tag:'Nouveau', cat:'Hauts', stock:2, rating:4.8, reviews:51, desc:'Bustier corseté en satin ivoire, baleines structurantes, dos lacé ajustable. La pièce statement de la collection.', revs:[['Julia P.','Le maintien est parfait, le laçage dos s\'ajuste très bien. Effet waouh garanti.'],['Emma V.','Pièce forte, je l\'ai portée à un mariage, que des compliments.']]},
+  {id:'manteau', name:'Manteau Long "Camel"', price:329, old:null, img:'assets/w-manteau.jpg', model:'assets/w-model-manteau.jpg', tag:null, cat:'Vestes & manteaux', rating:4.9, reviews:73, desc:'Manteau long en laine vierge camel, coupe droite intemporelle, ceinture amovible. Tombé impeccable, doublure satinée.', revs:[['Victoria S.','Un investissement qui en vaut la peine, la laine est chaude et le tombé magnifique.'],['Alice G.','Intemporel. Je le garderai des années, qualité exceptionnelle.']]},
+  {id:'noire', name:'Robe Cocktail "Noire"', price:199, old:null, img:'assets/w-noire.jpg', model:'assets/w-model-noire.jpg', tag:null, cat:'Robes', stock:0, rating:4.8, reviews:97, desc:'Robe de cocktail noire épaules dénudées, drapé sculptural, longueur midi. L\'élégance absolue pour les grands soirs.', revs:[['Nadia K.','Le drapé est sublime, met en valeur sans mouler. La petite robe noire idéale.'],['Sofia A.','Classe absolue. Le tissu est lourd et qualitatif, rien à redire.']]},
 ];
 const SIZES = ['XS','S','M','L','XL'];
 const PROMOS = {'RUE10':10,'BIENVENUE':10};
@@ -948,20 +969,43 @@ function renderWishCount(){
 }
 const heartSvg = '<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
 
+let currentCat = 'all';
+function imagesOf(p){
+  const arr=[]; [p.model,p.img,p.img3].forEach(s=>{if(s && arr.indexOf(s)<0) arr.push(s);});
+  return arr.length?arr:[p.img||p.model];
+}
+function inStock(p){ return (p.stock===undefined||p.stock===null) ? true : p.stock>0; }
+function isLow(p){ return (p.stock!=null && p.stock>0 && p.stock<=3); }
+function stockLabel(p){ return (p.stock==null)?'Stock illimité':(p.stock===0?'Épuisé':p.stock+' en stock'); }
+
+function renderFilters(){
+  const bar=document.getElementById('filter-bar');
+  if(!bar) return;
+  const cats=[...new Set(PRODUCTS.map(p=>p.cat).filter(Boolean))];
+  if(currentCat!=='all' && !cats.includes(currentCat)) currentCat='all';
+  if(cats.length<2){ bar.innerHTML=''; bar.style.display='none'; return; }
+  bar.style.display='flex';
+  bar.innerHTML = `<button class="filter-chip ${currentCat==='all'?'active':''}" data-cat="all">Tout voir</button>`+
+    cats.map(c=>`<button class="filter-chip ${currentCat===c?'active':''}" data-cat="${esc(c)}">${esc(c)}</button>`).join('');
+  bar.querySelectorAll('.filter-chip').forEach(ch=>ch.onclick=()=>{currentCat=ch.dataset.cat;renderFilters();renderGrid();});
+}
+
 function renderGrid(){
   const grid = document.getElementById('product-grid');
-  grid.innerHTML = PRODUCTS.map(p=>`
-    <div class="card" data-id="${p.id}">
+  const list = PRODUCTS.filter(p=> currentCat==='all' || p.cat===currentCat);
+  grid.innerHTML = list.map(p=>`
+    <div class="card ${!inStock(p)?'is-out':''}" data-id="${p.id}">
       <div class="card-media">
         ${p.tag?`<span class="tag">${p.tag}</span>`:''}
         <button class="wish-btn ${isWished(p.id)?'active':''}" data-wish="${p.id}" aria-label="favori">${heartSvg}</button>
         <img class="img-pack" src="${p.img}" alt="${p.name}" loading="lazy">
         <img class="img-model" src="${p.model}" alt="${p.name} porté" loading="lazy">
-        <div class="quickadd" data-add="${p.id}">Aperçu rapide</div>
+        ${!inStock(p)?'<div class="soldout"><span>Épuisé</span></div>':'<div class="quickadd" data-add="'+p.id+'">Aperçu rapide</div>'}
       </div>
       <div class="card-name">${p.name}</div>
       <div class="card-price">${p.old?`<span class="old">${fmt(p.old)}</span>`:''}${fmt(p.price)}</div>
       ${p.rating?`<div class="card-rating">${stars(p.rating)}<span>${(+p.rating).toFixed(1)} · ${p.reviews||0} avis</span></div>`:''}
+      ${isLow(p)?`<div class="card-stock">⚡ Plus que ${p.stock} en stock</div>`:''}
     </div>
   `).join('');
   grid.querySelectorAll('.card').forEach(c=>{
@@ -978,20 +1022,22 @@ function renderGrid(){
 function openModal(id){
   const p = PRODUCTS.find(x=>x.id===id);
   const modal = document.getElementById('modal-content');
+  const imgs = imagesOf(p);
+  const out = !inStock(p);
   modal.innerHTML = `
     <button class="modal-close" id="modal-close">&times;</button>
     <div class="modal-media">
-      <div class="modal-main"><img id="modal-main-img" src="${p.model}" alt="${p.name}"></div>
-      <div class="modal-thumbs">
-        <img class="active" data-src="${p.model}" src="${p.model}" alt="porté">
-        <img data-src="${p.img}" src="${p.img}" alt="produit">
-      </div>
+      <div class="modal-main"><img id="modal-main-img" src="${imgs[0]}" alt="${p.name}"></div>
+      ${imgs.length>1?`<div class="modal-thumbs">
+        ${imgs.map((src,i)=>`<img class="${i===0?'active':''}" data-src="${src}" src="${src}" alt="">`).join('')}
+      </div>`:''}
     </div>
     <div class="modal-info">
       <span class="eyebrow">${p.tag||'RUE. Couture'}</span>
       <h2>${p.name}</h2>
       ${p.rating?`<div class="modal-rating">${stars(p.rating)}<span>${(+p.rating).toFixed(1)} · ${p.reviews||0} avis</span></div>`:''}
       <div class="modal-price">${p.old?`<span class="old" style="text-decoration:line-through;opacity:.5;margin-right:8px;">${fmt(p.old)}</span>`:''}${fmt(p.price)}</div>
+      ${isLow(p)?`<div class="modal-stocklow">⚡ Dépêchez-vous : plus que ${p.stock} en stock</div>`:''}
       <p class="modal-desc">${p.desc}</p>
       <div class="size-head">
         <div class="opt-label">Taille</div>
@@ -1001,9 +1047,11 @@ function openModal(id){
         ${SIZES.map((s,i)=>`<button class="size-btn ${i===2?'active':''}" data-size="${s}">${s}</button>`).join('')}
       </div>
       <div class="modal-foot">
-        <button class="btn btn-block" id="modal-add">Ajouter au panier · ${fmt(p.price)}</button>
+        ${out
+          ? `<button class="btn btn-block" id="modal-add" disabled>Épuisé</button>`
+          : `<button class="btn btn-block" id="modal-add">Ajouter au panier · ${fmt(p.price)}</button>`}
         <button class="btn btn-ghost btn-block" data-wish="${p.id}" id="modal-wish">${isWished(p.id)?'♥ Dans vos favoris':'♡ Ajouter aux favoris'}</button>
-        <span class="stock-note">En stock · Expédié sous 24-48h · Retours gratuits 30 j</span>
+        <span class="stock-note">${out?'Article actuellement épuisé · réassort à venir':'En stock · Expédié sous 24-48h · Retours gratuits 30 j'}</span>
       </div>
       ${(p.revs&&p.revs.length)?`<div class="reviews">
         <h4>Avis clientes (${p.reviews||p.revs.length})</h4>
@@ -1033,10 +1081,15 @@ function openModal(id){
     modal.querySelectorAll('.size-btn').forEach(x=>x.classList.remove('active'));
     b.classList.add('active'); selectedSize=b.dataset.size;
   }));
-  modal.querySelector('#modal-add').addEventListener('click',()=>{
-    addToCart(p.id, selectedSize);
-    closeModal();
-  });
+  const addBtn = modal.querySelector('#modal-add');
+  if(addBtn && !out){
+    addBtn.addEventListener('click',()=>{
+      const inCart = cart.filter(i=>i.id===p.id).reduce((a,i)=>a+i.qty,0);
+      if(p.stock!=null && inCart>=p.stock){ showToast('Stock maximum atteint pour cet article'); return; }
+      addToCart(p.id, selectedSize);
+      closeModal();
+    });
+  }
   modal.querySelector('#modal-wish').addEventListener('click',()=>{
     toggleWish(p.id);
     const w = modal.querySelector('#modal-wish');
@@ -1359,7 +1412,7 @@ function applySettings(){
 let admTab='produits', admEditId=null, admDraft={};
 function openAdmin(){document.getElementById('adm').classList.add('open');document.body.style.overflow='hidden';admTab='produits';admEditId=null;admDraft={};renderAdmin();}
 function closeAdmin(){document.getElementById('adm').classList.remove('open');document.body.style.overflow='';}
-function refreshStore(){saveCatalog();sanitizeStored();applySettings();renderGrid();renderCart();renderWishCount();}
+function refreshStore(){saveCatalog();sanitizeStored();applySettings();renderFilters();renderGrid();renderCart();renderWishCount();}
 
 function fileToDataURL(file,maxW,cb){
   const fr=new FileReader();
@@ -1429,18 +1482,27 @@ function renderAdmProducts(){
         <button class="btn" id="adm-add">+ Ajouter un produit</button>
       </div>
     </div>
+    <div class="adm-count" style="margin-bottom:10px;">Utilisez les flèches pour changer l'ordre d'affichage en boutique.</div>
     <div class="adm-list">
-      ${PRODUCTS.map(p=>`
+      ${PRODUCTS.map((p,i)=>`
         <div class="adm-row">
+          <div class="ord"><button data-up="${i}" ${i===0?'disabled':''} aria-label="monter">▲</button><button data-down="${i}" ${i===PRODUCTS.length-1?'disabled':''} aria-label="descendre">▼</button></div>
           <img src="${p.img}" alt="">
-          <div class="ri"><div class="rn">${esc(p.name)}</div><div class="rp">${fmt(p.price)}${p.old?' · ancien '+fmt(p.old):''}</div>${p.tag?`<span class="rtag">${esc(p.tag)}</span>`:''}</div>
+          <div class="ri">
+            <div class="rn">${esc(p.name)}</div>
+            <div class="rp">${fmt(p.price)}${p.old?' · ancien '+fmt(p.old):''}</div>
+            <div class="rmeta">${p.cat?esc(p.cat)+' · ':''}${stockLabel(p)}</div>
+            ${p.tag?`<span class="rtag">${esc(p.tag)}</span>`:''}
+          </div>
           <div class="rb"><button data-edit="${p.id}">Modifier</button><button class="del" data-del="${p.id}">Supprimer</button></div>
         </div>`).join('')}
     </div>`;
   document.getElementById('adm-add').onclick=()=>{admEditId=null;admDraft={};renderAdmForm();};
   document.getElementById('adm-reset').onclick=()=>{if(confirm("Réinitialiser le catalogue aux produits d'origine ? Vos ajouts seront perdus.")){PRODUCTS=JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));refreshStore();renderAdmProducts();showToast('Catalogue réinitialisé');}};
-  w.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>{admEditId=b.dataset.edit;const p=PRODUCTS.find(x=>x.id===admEditId);admDraft={img:p.img,model:p.model};renderAdmForm();});
+  w.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>{admEditId=b.dataset.edit;const p=PRODUCTS.find(x=>x.id===admEditId);admDraft={img:p.img,model:p.model,img3:p.img3};renderAdmForm();});
   w.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{if(confirm('Supprimer ce produit ?')){PRODUCTS=PRODUCTS.filter(x=>x.id!==b.dataset.del);refreshStore();renderAdmProducts();showToast('Produit supprimé');}});
+  w.querySelectorAll('[data-up]').forEach(b=>b.onclick=()=>{const i=+b.dataset.up;if(i>0){const t=PRODUCTS[i-1];PRODUCTS[i-1]=PRODUCTS[i];PRODUCTS[i]=t;refreshStore();renderAdmProducts();}});
+  w.querySelectorAll('[data-down]').forEach(b=>b.onclick=()=>{const i=+b.dataset.down;if(i<PRODUCTS.length-1){const t=PRODUCTS[i+1];PRODUCTS[i+1]=PRODUCTS[i];PRODUCTS[i]=t;refreshStore();renderAdmProducts();}});
 }
 
 function dropHtml(key,label,val){
@@ -1468,9 +1530,14 @@ function renderAdmForm(){
     <div class="adm-bar"><h3>${admEditId?'Modifier le produit':'Nouveau produit'}</h3><button class="btn btn-ghost" id="adm-back">← Retour</button></div>
     <div class="ad-imgs">
       ${dropHtml('img','Photo principale *',admDraft.img||'')}
-      ${dropHtml('model','Photo portée (optionnel)',admDraft.model||'')}
+      ${dropHtml('model','Photo portée',admDraft.model||'')}
+      ${dropHtml('img3','Photo ambiance',admDraft.img3||'')}
     </div>
     <div class="ad-field" style="margin-top:6px;"><label>Nom du produit *</label><input id="f-name" value="${esc(p.name||'')}" placeholder="Robe en soie « Aurore »"></div>
+    <div class="ad-2">
+      <div class="ad-field"><label>Catégorie</label><input id="f-cat" list="cat-list" value="${esc(p.cat||'')}" placeholder="Robes, Vestes & manteaux…"><datalist id="cat-list">${[...new Set(PRODUCTS.map(x=>x.cat).filter(Boolean))].map(c=>`<option value="${esc(c)}">`).join('')}</datalist></div>
+      <div class="ad-field"><label>Stock (vide = illimité)</label><input id="f-stock" type="number" min="0" value="${p.stock!=null?p.stock:''}" placeholder="ex : 10"></div>
+    </div>
     <div class="ad-2">
       <div class="ad-field"><label>Prix (€) *</label><input id="f-price" type="number" step="0.01" value="${p.price!=null?p.price:''}" placeholder="189"></div>
       <div class="ad-field"><label>Ancien prix (€)</label><input id="f-old" type="number" step="0.01" value="${p.old||''}" placeholder="vide si pas de promo"></div>
@@ -1499,12 +1566,15 @@ function saveProductFromForm(){
   if(!(price>=0)){showToast('Indiquez un prix valide');return;}
   if(!admDraft.img){showToast('Ajoutez au moins une photo');return;}
   const oldv=parseFloat(g('f-old').value), ratingv=parseFloat(g('f-rating').value);
+  const stockStr=g('f-stock').value.trim();
   const data={
     name, price,
+    cat:g('f-cat').value.trim()||null,
+    stock: stockStr===''?undefined:Math.max(0,parseInt(stockStr)||0),
     old:(oldv>0&&oldv>price)?oldv:null,
     tag:g('f-tag').value.trim()||null,
     desc:g('f-desc').value.trim(),
-    img:admDraft.img, model:admDraft.model||admDraft.img,
+    img:admDraft.img, model:admDraft.model||admDraft.img, img3:admDraft.img3||undefined,
     rating:(ratingv>0)?Math.min(5,ratingv):undefined,
     reviews:(ratingv>0)?(parseInt(g('f-reviews').value)||0):undefined
   };
@@ -1542,6 +1612,7 @@ document.getElementById('open-admin').addEventListener('click',openAdmin);
 if(location.hash==='#admin') setTimeout(openAdmin,80);
 
 applySettings();
+renderFilters();
 renderGrid();
 renderCart();
 renderWishCount();
