@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RUE. — Streetwear minimaliste</title>
-<meta name="description" content="RUE. — Pièces essentielles, coupes oversize, matières brutes. Démo e-commerce.">
+<title>RUE. · Maison de couture parisienne</title>
+<meta name="description" content="RUE. Pièces couture en satin de soie et laine froide, façonnées main en éditions limitées. Démo e-commerce par Arkhan Digital.">
 <style>
   :root{
     --bg:#f3f1ec;
@@ -353,10 +353,51 @@
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
   .reveal.in{opacity:1;transform:translateY(0);}
 
+  /* Hero trust line */
+  .hero-trust{display:flex;align-items:center;gap:14px;margin-top:24px;font-size:12.5px;color:var(--ink-soft);flex-wrap:wrap;}
+  .hero-trust .ht{display:flex;align-items:center;gap:6px;}
+  .hero-trust .stars{font-size:12px;}
+  .hero-trust .sep{width:1px;height:14px;background:var(--line);}
+
+  /* Stats band */
+  .stats{background:var(--ink);color:var(--bg);}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);}
+  .stat{padding:46px 24px;text-align:center;border-left:1px solid rgba(243,241,236,.12);}
+  .stat:first-child{border-left:none;}
+  .stat .num{font-size:42px;font-weight:300;letter-spacing:-0.02em;line-height:1;margin-bottom:8px;color:#fff;}
+  .stat .lab{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#bdb8ab;}
+
+  /* Testimonials */
+  .testi{background:var(--bg-alt);}
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:8px;}
+  .testi-card{background:var(--bg);padding:30px;display:flex;flex-direction:column;}
+  .testi-card .stars{font-size:14px;margin-bottom:14px;}
+  .testi-card blockquote{font-size:17px;line-height:1.6;margin:0 0 20px;color:var(--ink);font-style:italic;}
+  .testi-who{display:flex;align-items:center;gap:12px;margin-top:auto;}
+  .testi-who .av{width:42px;height:42px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;}
+  .testi-who .nm{font-size:13px;font-weight:600;}
+  .testi-who .ro{font-size:11px;color:var(--ink-soft);}
+
+  /* Instagram feed */
+  .insta-head{text-align:center;margin-bottom:32px;}
+  .insta-head h2{margin-bottom:6px;}
+  .insta-head a{color:var(--accent);font-size:14px;}
+  .insta-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;}
+  .insta-item{position:relative;aspect-ratio:1;overflow:hidden;background:var(--bg-alt);cursor:pointer;}
+  .insta-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+  .insta-item:hover img{transform:scale(1.08);}
+  .insta-item::after{content:'♥';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;background:rgba(22,21,19,.35);opacity:0;transition:.25s;}
+  .insta-item:hover::after{opacity:1;}
+
   @media(max-width:980px){
     .nav-links{display:none;}
     .search-results,.related-grid{grid-template-columns:repeat(2,1fr);}
     .search-bar input{font-size:20px;}
+    .stats-grid{grid-template-columns:repeat(2,1fr);}
+    .stat{border-left:none;}
+    .stat:nth-child(-n+2){border-bottom:1px solid rgba(243,241,236,.12);}
+    .testi-grid{grid-template-columns:1fr;}
+    .insta-grid{grid-template-columns:repeat(3,1fr);}
     .burger{display:block;}
     .hero{grid-template-columns:1fr;min-height:auto;}
     .hero-media{height:60vh;}
@@ -382,12 +423,12 @@
 <header>
   <div class="marquee">
     <div class="marquee-track">
-      <span>SITE DE DÉMONSTRATION — RÉALISÉ PAR ARKHAN DIGITAL</span>
+      <span>SITE DE DÉMONSTRATION · RÉALISÉ PAR ARKHAN DIGITAL</span>
       <span>LIVRAISON OFFERTE DÈS 150€</span>
-      <span>NOUVELLE COLLECTION — COUTURE S1</span>
-      <span>SITE DE DÉMONSTRATION — RÉALISÉ PAR ARKHAN DIGITAL</span>
+      <span>NOUVELLE COLLECTION · COUTURE S1</span>
+      <span>SITE DE DÉMONSTRATION · RÉALISÉ PAR ARKHAN DIGITAL</span>
       <span>LIVRAISON OFFERTE DÈS 150€</span>
-      <span>NOUVELLE COLLECTION — COUTURE S1</span>
+      <span>NOUVELLE COLLECTION · COUTURE S1</span>
     </div>
   </div>
   <div class="wrap nav">
@@ -419,12 +460,21 @@
 <section class="hero">
   <div class="hero-media"><img src="assets/w-model-robe.jpg" alt="Collection RUE." loading="eager"></div>
   <div class="hero-copy">
-    <span class="eyebrow">Collection Couture — S1</span>
+    <span class="eyebrow">Collection Couture · S1</span>
     <h1>L'élégance,<br>sans effort.</h1>
-    <p>Satins fluides, tailleurs structurés, palette chaude. Une garde-robe couture pensée pour la femme qui n'a rien à prouver — seulement à rayonner.</p>
+    <p>Satins fluides, tailleurs structurés, palette chaude. Une garde-robe couture pensée pour la femme qui n'a rien à prouver, seulement à rayonner.</p>
     <div class="hero-actions">
       <a href="#shop" class="btn">Voir la collection</a>
       <a href="#lookbook" class="btn btn-ghost">Lookbook</a>
+    </div>
+    <div class="hero-trust">
+      <span class="ht"><span class="stars" style="color:#c9a44a;">★★★★★</span> 4,8/5</span>
+      <span class="sep"></span>
+      <span class="ht">12 000+ clientes</span>
+      <span class="sep"></span>
+      <span class="ht">Livraison 48h</span>
+      <span class="sep"></span>
+      <span class="ht">Paiement sécurisé</span>
     </div>
   </div>
 </section>
@@ -448,13 +498,13 @@
       <a href="#shop">Shopper le look</a>
     </div>
     <div class="ed-grid">
-      <figure class="ed-item ed-a" data-id="robe"><img src="assets/w-model-robe.jpg" alt="Robe satinée portée" loading="lazy"><figcaption>Robe Satinée "Champagne" — 189€</figcaption></figure>
-      <figure class="ed-item ed-b" data-id="blazer"><img src="assets/w-model-blazer.jpg" alt="Blazer porté" loading="lazy"><figcaption>Blazer Structuré "Noir" — 229€</figcaption></figure>
-      <figure class="ed-item ed-c" data-id="noire"><img src="assets/w-model-noire.jpg" alt="Robe noire portée" loading="lazy"><figcaption>Robe Cocktail "Noire" — 199€</figcaption></figure>
-      <figure class="ed-item ed-d" data-id="bustier"><img src="assets/w-model-bustier.jpg" alt="Bustier porté" loading="lazy"><figcaption>Bustier "Ivoire" — 119€</figcaption></figure>
-      <figure class="ed-item ed-e" data-id="manteau"><img src="assets/w-model-manteau.jpg" alt="Manteau porté" loading="lazy"><figcaption>Manteau Long "Camel" — 329€</figcaption></figure>
+      <figure class="ed-item ed-a" data-id="robe"><img src="assets/w-model-robe.jpg" alt="Robe satinée portée" loading="lazy"><figcaption>Robe Satinée "Champagne" · 189€</figcaption></figure>
+      <figure class="ed-item ed-b" data-id="blazer"><img src="assets/w-model-blazer.jpg" alt="Blazer porté" loading="lazy"><figcaption>Blazer Structuré "Noir" · 229€</figcaption></figure>
+      <figure class="ed-item ed-c" data-id="noire"><img src="assets/w-model-noire.jpg" alt="Robe noire portée" loading="lazy"><figcaption>Robe Cocktail "Noire" · 199€</figcaption></figure>
+      <figure class="ed-item ed-d" data-id="bustier"><img src="assets/w-model-bustier.jpg" alt="Bustier porté" loading="lazy"><figcaption>Bustier "Ivoire" · 119€</figcaption></figure>
+      <figure class="ed-item ed-e" data-id="manteau"><img src="assets/w-model-manteau.jpg" alt="Manteau porté" loading="lazy"><figcaption>Manteau Long "Camel" · 329€</figcaption></figure>
       <figure class="ed-item ed-f" data-id="campagne"><img src="assets/w-lookbook-wide.jpg" alt="Campagne RUE." loading="lazy"><figcaption>Soie · façonné à la main</figcaption></figure>
-      <figure class="ed-item ed-g" data-id="jupe"><img src="assets/w-model-jupe.jpg" alt="Jupe portée" loading="lazy"><figcaption>Jupe Plissée "Or" — 139€</figcaption></figure>
+      <figure class="ed-item ed-g" data-id="jupe"><img src="assets/w-model-jupe.jpg" alt="Jupe portée" loading="lazy"><figcaption>Jupe Plissée "Or" · 139€</figcaption></figure>
     </div>
   </div>
 </section>
@@ -470,6 +520,16 @@
   </div>
 </section>
 
+<!-- ===== STATS ===== -->
+<section class="stats">
+  <div class="wrap stats-grid">
+    <div class="stat"><div class="num" data-count="12000" data-suffix="+">0</div><div class="lab">Clientes conquises</div></div>
+    <div class="stat"><div class="num" data-count="4.8" data-decimals="1" data-suffix="/5">0</div><div class="lab">Note moyenne</div></div>
+    <div class="stat"><div class="num" data-count="48" data-suffix="h">0</div><div class="lab">Livraison express</div></div>
+    <div class="stat"><div class="num" data-count="98" data-suffix="%">0</div><div class="lab">Clientes satisfaites</div></div>
+  </div>
+</section>
+
 <!-- ===== STRIP ===== -->
 <section class="strip">
   <div class="wrap strip-grid">
@@ -480,13 +540,59 @@
   </div>
 </section>
 
+<!-- ===== TESTIMONIALS ===== -->
+<section class="section testi">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Elles parlent de nous</h2>
+      <span style="font-size:13px;color:var(--ink-soft);">Note moyenne 4,8/5 sur 639 avis vérifiés</span>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <span class="stars" style="color:#c9a44a;">★★★★★</span>
+        <blockquote>« Je n'achète plus que chez RUE. La qualité des tissus est incomparable et chaque pièce dure des années. »</blockquote>
+        <div class="testi-who"><div class="av">A</div><div><div class="nm">Amélie R.</div><div class="ro">Cliente fidèle · Paris</div></div></div>
+      </div>
+      <div class="testi-card">
+        <span class="stars" style="color:#c9a44a;">★★★★★</span>
+        <blockquote>« Livraison ultra rapide, emballage soigné. On sent une vraie maison derrière, pas une marque de fast-fashion. »</blockquote>
+        <div class="testi-who"><div class="av">C</div><div><div class="nm">Clara M.</div><div class="ro">Première commande · Lyon</div></div></div>
+      </div>
+      <div class="testi-card">
+        <span class="stars" style="color:#c9a44a;">★★★★★</span>
+        <blockquote>« Le blazer structuré est devenu ma signature. Je reçois des compliments à chaque fois que je le porte. »</blockquote>
+        <div class="testi-who"><div class="av">S</div><div><div class="nm">Sofia L.</div><div class="ro">Cliente fidèle · Bordeaux</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INSTAGRAM ===== -->
+<section class="section">
+  <div class="wrap">
+    <div class="insta-head">
+      <span class="eyebrow">Communauté</span>
+      <h2>@rue.paris</h2>
+      <a href="#shop">Identifiez-nous pour apparaître ici</a>
+    </div>
+    <div class="insta-grid">
+      <div class="insta-item" data-id="robe"><img src="assets/w-model-robe.jpg" alt="" loading="lazy"></div>
+      <div class="insta-item" data-id="blazer"><img src="assets/w-model-blazer.jpg" alt="" loading="lazy"></div>
+      <div class="insta-item" data-id="noire"><img src="assets/w-model-noire.jpg" alt="" loading="lazy"></div>
+      <div class="insta-item" data-id="manteau"><img src="assets/w-model-manteau.jpg" alt="" loading="lazy"></div>
+      <div class="insta-item" data-id="bustier"><img src="assets/w-model-bustier.jpg" alt="" loading="lazy"></div>
+      <div class="insta-item" data-id="jupe"><img src="assets/w-model-jupe.jpg" alt="" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
 <!-- ===== NEWSLETTER ===== -->
 <section class="news" id="contact">
   <div class="wrap">
-    <h2>Rejoins la liste.</h2>
-    <p>Accès prioritaire aux drops + 10% sur ta première commande.</p>
-    <form class="news-form" onsubmit="event.preventDefault(); showToast('Merci — vérifie ta boîte mail (démo)');this.reset();">
-      <input type="email" placeholder="ton@email.com" required>
+    <h2>Rejoignez le cercle.</h2>
+    <p>Accès prioritaire aux nouveautés et 10% sur votre première commande.</p>
+    <form class="news-form" onsubmit="event.preventDefault(); showToast('Merci, vérifiez votre boîte mail (démo)');this.reset();">
+      <input type="email" placeholder="votre@email.com" required>
       <button type="submit">S'inscrire</button>
     </form>
   </div>
@@ -514,7 +620,7 @@
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© 2026 RUE. — <span class="badge-demo">SITE DÉMO</span> conçu par Arkhan Digital</span>
+      <span>© 2026 RUE. · <span class="badge-demo">SITE DÉMO</span> conçu par Arkhan Digital</span>
       <span>Toutes les données de cette page sont fictives</span>
     </div>
   </div>
@@ -575,7 +681,7 @@
       <input type="text" id="search-input" placeholder="Rechercher une pièce…" autocomplete="off">
       <button class="search-close" id="search-close">&times;</button>
     </div>
-    <div class="search-hint" id="search-hint">Tapez pour rechercher — robe, blazer, jupe…</div>
+    <div class="search-hint" id="search-hint">Tapez pour rechercher : robe, blazer, jupe…</div>
     <div class="search-results" id="search-results"></div>
   </div>
 </div>
@@ -707,7 +813,7 @@ function openModal(id){
         ${SIZES.map((s,i)=>`<button class="size-btn ${i===2?'active':''}" data-size="${s}">${s}</button>`).join('')}
       </div>
       <div class="modal-foot">
-        <button class="btn btn-block" id="modal-add">Ajouter au panier — ${fmt(p.price)}</button>
+        <button class="btn btn-block" id="modal-add">Ajouter au panier · ${fmt(p.price)}</button>
         <button class="btn btn-ghost btn-block" data-wish="${p.id}" id="modal-wish">${isWished(p.id)?'♥ Dans vos favoris':'♡ Ajouter aux favoris'}</button>
         <span class="stock-note">En stock · Expédié sous 24-48h · Retours gratuits 30 j</span>
       </div>
@@ -941,7 +1047,7 @@ function renderCheckout(){
         <h2 style="font-size:24px;margin-bottom:10px;">Merci ${coData.prenom} !</h2>
         <p style="color:var(--ink-soft);font-size:14px;margin-bottom:6px;">Votre commande <b>${num}</b> est confirmée.</p>
         <p style="color:var(--ink-soft);font-size:13px;">Un email de confirmation a été envoyé à ${coData.email}.<br>Livraison estimée sous 48h.</p>
-        <p style="font-size:11px;color:var(--ink-soft);margin-top:20px;background:var(--bg-alt);padding:10px;border-radius:3px;">Démo — aucun paiement réel n'a été effectué.</p>
+        <p style="font-size:11px;color:var(--ink-soft);margin-top:20px;background:var(--bg-alt);padding:10px;border-radius:3px;">Démo, aucun paiement réel n'a été effectué.</p>
         <button class="btn btn-block" id="co-done" style="margin-top:20px;">Continuer mes achats</button>
       </div>`;
     cart=[]; saveCart(); promo=null; localStorage.removeItem('rue_promo'); renderCart();
@@ -971,7 +1077,7 @@ sInput.addEventListener('input',()=>{
   const q=sInput.value.trim().toLowerCase();
   const res=document.getElementById('search-results');
   const hint=document.getElementById('search-hint');
-  if(!q){res.innerHTML='';hint.textContent='Tapez pour rechercher — robe, blazer, jupe…';return;}
+  if(!q){res.innerHTML='';hint.textContent='Tapez pour rechercher : robe, blazer, jupe…';return;}
   const matches=PRODUCTS.filter(p=>p.name.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q)||(p.tag||'').toLowerCase().includes(q));
   hint.textContent = matches.length?`${matches.length} résultat(s)`:'Aucun résultat pour « '+sInput.value+' »';
   res.innerHTML=matches.map(p=>`<div class="sr-item" data-s="${p.id}"><img src="${p.model}" alt="${p.name}"><div class="n">${p.name}</div><div class="p">${fmt(p.price)}</div></div>`).join('');
@@ -999,7 +1105,33 @@ document.addEventListener('keydown',e=>{
 const io=new IntersectionObserver(entries=>{
   entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
 },{threshold:.12});
-document.querySelectorAll('.section, .banner, .strip, .news').forEach(el=>{el.classList.add('reveal');io.observe(el);});
+document.querySelectorAll('.section, .banner, .strip, .news, .stats').forEach(el=>{el.classList.add('reveal');io.observe(el);});
+
+/* ===== COMPTEURS ANIMÉS ===== */
+function animateCount(el){
+  const target=parseFloat(el.dataset.count);
+  const dec=parseInt(el.dataset.decimals||'0',10);
+  const suffix=el.dataset.suffix||'';
+  const dur=1400, start=performance.now();
+  function tick(now){
+    const t=Math.min((now-start)/dur,1);
+    const eased=1-Math.pow(1-t,3);
+    const val=target*eased;
+    let txt = dec>0 ? val.toFixed(dec).replace('.',',') : Math.round(val).toLocaleString('fr-FR');
+    el.textContent=txt+suffix;
+    if(t<1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+const countIo=new IntersectionObserver(entries=>{
+  entries.forEach(en=>{if(en.isIntersecting){animateCount(en.target);countIo.unobserve(en.target);}});
+},{threshold:.5});
+document.querySelectorAll('.stat .num').forEach(el=>countIo.observe(el));
+
+/* ===== FEED INSTAGRAM (clic -> fiche produit) ===== */
+document.querySelectorAll('.insta-item').forEach(el=>{
+  el.addEventListener('click',()=>{if(PRODUCTS.find(p=>p.id===el.dataset.id))openModal(el.dataset.id);});
+});
 
 function showToast(msg){
   const t = document.getElementById('toast');
