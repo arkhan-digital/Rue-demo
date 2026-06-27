@@ -523,6 +523,29 @@
   .modal-stocklow{font-size:12px;color:#b06a2c;margin:-4px 0 14px;}
   .btn[disabled]{opacity:.45;cursor:not-allowed;pointer-events:none;}
 
+  /* Pages légales */
+  .legal-overlay{position:fixed;inset:0;z-index:160;background:rgba(22,21,19,.55);opacity:0;visibility:hidden;transition:.25s;display:flex;justify-content:center;align-items:flex-start;padding:40px 20px;overflow-y:auto;}
+  .legal-overlay.open{opacity:1;visibility:visible;}
+  .legal-box{background:var(--bg);max-width:760px;width:100%;padding:46px;position:relative;margin:auto;}
+  .legal-box .lg-close{position:absolute;top:16px;right:18px;background:none;border:none;font-size:24px;cursor:pointer;line-height:1;}
+  .legal-box h2{font-size:24px;margin-bottom:8px;}
+  .legal-box .lg-note{font-size:12px;color:var(--ink-soft);background:var(--bg-alt);padding:10px 12px;border-radius:3px;margin-bottom:24px;}
+  .legal-box h3{font-size:13px;letter-spacing:.05em;text-transform:uppercase;margin:24px 0 8px;}
+  .legal-box p{font-size:14px;line-height:1.7;color:var(--ink);margin:0 0 8px;}
+  .legal-box ul{padding-left:18px;margin:8px 0;}
+  .legal-box li{font-size:14px;line-height:1.7;}
+  .legal-box a{color:var(--accent);text-decoration:underline;}
+
+  /* Bandeau cookies */
+  .cookie{position:fixed;left:0;right:0;bottom:0;z-index:170;background:var(--ink);color:var(--bg);padding:18px 22px;display:none;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center;}
+  .cookie.show{display:flex;}
+  .cookie p{font-size:13px;line-height:1.6;margin:0;max-width:620px;color:#e8e5dd;}
+  .cookie p a{color:#fff;text-decoration:underline;cursor:pointer;}
+  .cookie .cbtns{display:flex;gap:10px;}
+  .cookie button{border:1px solid rgba(243,241,236,.4);background:transparent;color:var(--bg);padding:10px 18px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:2px;}
+  .cookie button.accept{background:var(--bg);color:var(--ink);border-color:var(--bg);}
+  .cookie button:hover{opacity:.85;}
+
   /* ===== ESPACE ADMIN ===== */
   .admin-link{cursor:pointer;}
   .adm-row .ord{display:flex;flex-direction:column;gap:2px;}
@@ -791,11 +814,11 @@
       </div>
       <div>
         <h5>Aide</h5>
-        <ul><li><a href="#">Livraison</a></li><li><a href="#">Retours</a></li><li><a href="#">Guide des tailles</a></li><li><a href="#contact">Contact</a></li></ul>
+        <ul><li><a href="#" class="lg-link" data-legal="cgv">Livraison &amp; retours</a></li><li><a href="#" class="sg-link">Guide des tailles</a></li><li><a href="#contact">Contact</a></li></ul>
       </div>
       <div>
-        <h5>Marque</h5>
-        <ul><li><a href="#about">Notre histoire</a></li><li><a href="#lookbook">Lookbook</a></li><li><a href="#">Presse</a></li></ul>
+        <h5>Informations légales</h5>
+        <ul><li><a href="#" class="lg-link" data-legal="mentions">Mentions légales</a></li><li><a href="#" class="lg-link" data-legal="confidentialite">Confidentialité &amp; RGPD</a></li><li><a href="#" class="lg-link" data-legal="cgv">CGV</a></li></ul>
       </div>
     </div>
     <div class="foot-bottom">
@@ -891,6 +914,20 @@
 
 <!-- ===== ESPACE ADMIN ===== -->
 <div class="adm" id="adm"></div>
+
+<!-- ===== PAGES LÉGALES ===== -->
+<div class="legal-overlay" id="legal-overlay">
+  <div class="legal-box" id="legal-box"></div>
+</div>
+
+<!-- ===== BANDEAU COOKIES ===== -->
+<div class="cookie" id="cookie">
+  <p>Nous utilisons des cookies nécessaires au fonctionnement du site et, avec votre accord, des cookies de mesure d'audience. <a id="cookie-more">En savoir plus</a></p>
+  <div class="cbtns">
+    <button id="cookie-refuse">Refuser</button>
+    <button class="accept" id="cookie-accept">Tout accepter</button>
+  </div>
+</div>
 
 <script>
 const DEFAULT_PRODUCTS = [
@@ -1342,7 +1379,7 @@ document.getElementById('wish-toggle').addEventListener('click',()=>{
 
 /* ===== ÉCHAP ferme tout ===== */
 document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){closeModal();closeDrawer();closeSearch();closeMM();closeCheckout();sgOv.classList.remove('open');}
+  if(e.key==='Escape'){closeModal();closeDrawer();closeSearch();closeMM();closeCheckout();sgOv.classList.remove('open');document.getElementById('legal-overlay').classList.remove('open');}
 });
 
 /* ===== ANIMATIONS AU SCROLL ===== */
@@ -1613,6 +1650,75 @@ function renderAdmSettings(){
 }
 document.getElementById('open-admin').addEventListener('click',openAdmin);
 if(location.hash==='#admin') setTimeout(openAdmin,80);
+
+/* ===== PAGES LÉGALES (modèles RGPD) ===== */
+function legalContent(key){
+  const b = esc(SETTINGS.brand);
+  const ship = SETTINGS.freeShip;
+  const note = `<div class="lg-note">Modèle de démonstration · remplacez les informations entre crochets […] par vos données réelles avant la mise en ligne. Pour un site en production, faites valider ces textes par un professionnel du droit.</div>`;
+  if(key==='mentions') return `<h2>Mentions légales</h2>${note}
+    <h3>Éditeur du site</h3>
+    <p>Le site ${b} est édité par [Nom / raison sociale], micro-entreprise immatriculée sous le numéro SIREN [000 000 000], dont le siège est situé [adresse], [code postal] [ville], France.<br>
+    E-mail : [contact@votreboutique.fr] · Téléphone : [00 00 00 00 00]<br>
+    Responsable de la publication : [Prénom Nom]<br>
+    N° de TVA intracommunautaire : [FR00 000000000] (le cas échéant)</p>
+    <h3>Hébergement</h3>
+    <p>Le site est hébergé par Cloudflare, Inc., 101 Townsend Street, San Francisco, CA 94107, États-Unis. Les données de la boutique sont stockées sur une infrastructure localisée dans l'Union européenne (juridiction « eu »).</p>
+    <h3>Propriété intellectuelle</h3>
+    <p>L'ensemble des contenus (textes, visuels, logos) présents sur ce site est protégé par le droit de la propriété intellectuelle. Toute reproduction sans autorisation préalable est interdite.</p>`;
+  if(key==='confidentialite') return `<h2>Politique de confidentialité</h2>${note}
+    <h3>Responsable du traitement</h3>
+    <p>[Nom], joignable à [contact@votreboutique.fr].</p>
+    <h3>Données collectées</h3>
+    <p>Nous collectons les données que vous nous transmettez : identité (nom, prénom), coordonnées (e-mail, adresse postale, téléphone), informations de commande, ainsi que des données de navigation (cookies).</p>
+    <h3>Finalités et bases légales</h3>
+    <ul>
+      <li>Gestion des commandes, de la livraison et du service client · exécution du contrat ;</li>
+      <li>Envoi de la newsletter · votre consentement ;</li>
+      <li>Statistiques de fréquentation et amélioration du site · intérêt légitime / consentement (cookies).</li>
+    </ul>
+    <h3>Destinataires</h3>
+    <p>Vos données sont traitées par [Nom] et ses sous-traitants : hébergeur (Cloudflare, données stockées dans l'UE), prestataire de paiement et transporteur. Aucune donnée n'est vendue à des tiers.</p>
+    <h3>Durée de conservation</h3>
+    <p>Données de commande : durée de la relation commerciale puis obligations légales (jusqu'à 10 ans pour les factures). Données de prospection : 3 ans après le dernier contact.</p>
+    <h3>Vos droits</h3>
+    <p>Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, d'effacement, d'opposition, de limitation et de portabilité. Pour les exercer : [contact@votreboutique.fr]. Vous pouvez aussi saisir la CNIL (<a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a>).</p>
+    <h3>Cookies</h3>
+    <p>Ce site utilise des cookies nécessaires à son fonctionnement et, avec votre accord, des cookies de mesure d'audience. Vous pouvez modifier votre choix à tout moment via le bandeau cookies.</p>`;
+  return `<h2>Conditions Générales de Vente</h2>${note}
+    <h3>Article 1 · Objet</h3>
+    <p>Les présentes CGV régissent les ventes conclues sur le site ${b} entre [Nom] et tout client.</p>
+    <h3>Article 2 · Produits et prix</h3>
+    <p>Les produits sont présentés avec leurs caractéristiques essentielles. Les prix sont indiqués en euros toutes taxes comprises (TTC), hors frais de livraison.</p>
+    <h3>Article 3 · Commande et paiement</h3>
+    <p>Le client valide sa commande après vérification du panier. Le paiement s'effectue par carte bancaire via un prestataire sécurisé ; les données de paiement ne sont pas conservées par la boutique.</p>
+    <h3>Article 4 · Livraison</h3>
+    <p>Les produits sont expédiés sous [24-48h], délai de livraison estimé [2 à 5 jours ouvrés]. La livraison est offerte dès ${ship} € d'achat.</p>
+    <h3>Article 5 · Droit de rétractation</h3>
+    <p>Conformément aux articles L221-18 et suivants du Code de la consommation, le client dispose d'un délai de 14 jours à compter de la réception pour se rétracter, sans justification. Les retours sont [gratuits sous 30 jours].</p>
+    <h3>Article 6 · Garanties</h3>
+    <p>Les produits bénéficient de la garantie légale de conformité et de la garantie contre les vices cachés.</p>
+    <h3>Article 7 · Données personnelles et litiges</h3>
+    <p>Le traitement des données est décrit dans notre Politique de confidentialité. En cas de litige, le client peut recourir gratuitement à un médiateur de la consommation ; à défaut d'accord, les tribunaux français sont compétents.</p>`;
+}
+const legalOverlay=document.getElementById('legal-overlay');
+function openLegal(key){
+  document.getElementById('legal-box').innerHTML=`<button class="lg-close" id="lg-close">&times;</button>${legalContent(key)}`;
+  document.getElementById('lg-close').onclick=()=>legalOverlay.classList.remove('open');
+  legalOverlay.classList.add('open');
+  legalOverlay.scrollTop=0;
+}
+legalOverlay.addEventListener('click',e=>{if(e.target===legalOverlay)legalOverlay.classList.remove('open');});
+document.querySelectorAll('.lg-link').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();openLegal(a.dataset.legal);}));
+document.querySelectorAll('.sg-link').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();document.getElementById('sg-overlay').classList.add('open');}));
+
+/* ===== BANDEAU COOKIES ===== */
+const cookieBar=document.getElementById('cookie');
+function setCookieChoice(v){ localStorage.setItem('rue_cookies', v); cookieBar.classList.remove('show'); }
+if(!localStorage.getItem('rue_cookies')) cookieBar.classList.add('show');
+document.getElementById('cookie-accept').onclick=()=>{ setCookieChoice('all'); showToast('Préférences cookies enregistrées'); };
+document.getElementById('cookie-refuse').onclick=()=>{ setCookieChoice('essential'); showToast('Seuls les cookies essentiels sont activés'); };
+document.getElementById('cookie-more').onclick=()=>openLegal('confidentialite');
 
 applySettings();
 renderFilters();
