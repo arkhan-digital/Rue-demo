@@ -1454,6 +1454,8 @@ function openAdmin(){document.getElementById('adm').classList.add('open');docume
 function closeAdmin(){document.getElementById('adm').classList.remove('open');document.body.style.overflow='';}
 function refreshStore(){saveCatalog();sanitizeStored();applySettings();renderFilters();renderGrid();renderCart();renderWishCount();}
 
+const PLACEHOLDER_IMG = 'data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800"><rect width="600" height="800" fill="#e8e4da"/><text x="300" y="395" font-family="Helvetica,Arial,sans-serif" font-size="30" fill="#a89f8d" text-anchor="middle">Photo à venir</text><text x="300" y="430" font-family="Helvetica,Arial,sans-serif" font-size="16" fill="#bdb4a2" text-anchor="middle">à ajouter dans l\'admin</text></svg>');
+function showAdmMsg(txt,err){ const m=document.getElementById('adm-msg'); if(m){ m.textContent=txt; m.style.color=err?'#b23b3b':'#4a8a5c'; } }
 function fileToDataURL(file,maxW,cb){
   const fr=new FileReader();
   fr.onload=()=>{const img=new Image();img.onload=()=>{
@@ -1568,8 +1570,9 @@ function renderAdmForm(){
   const p=admEditId?PRODUCTS.find(x=>x.id===admEditId):{};
   w.innerHTML=`
     <div class="adm-bar"><h3>${admEditId?'Modifier le produit':'Nouveau produit'}</h3><button class="btn btn-ghost" id="adm-back">← Retour</button></div>
+    <p class="adm-count" style="margin-bottom:10px;">Photos : <b>cliquez sur une case</b> pour téléverser une image depuis votre appareil, <b>ou collez une URL</b> dans le champ en dessous. La photo est facultative (un visuel provisoire sera affiché).</p>
     <div class="ad-imgs">
-      ${dropHtml('img','Photo principale *',admDraft.img||'')}
+      ${dropHtml('img','Photo principale',admDraft.img||'')}
       ${dropHtml('model','Photo portée',admDraft.model||'')}
       ${dropHtml('img3','Photo ambiance',admDraft.img3||'')}
     </div>
@@ -1601,10 +1604,10 @@ function renderAdmForm(){
 function saveProductFromForm(){
   const g=id=>document.getElementById(id);
   const name=g('f-name').value.trim();
-  if(!name){showToast('Le nom est obligatoire');return;}
+  if(!name){ showAdmMsg('Le nom du produit est obligatoire.',true); g('f-name').focus(); showToast('Le nom est obligatoire'); return; }
   const price=parseFloat(g('f-price').value);
-  if(!(price>=0)){showToast('Indiquez un prix valide');return;}
-  if(!admDraft.img){showToast('Ajoutez au moins une photo');return;}
+  if(!(price>=0)){ showAdmMsg('Indiquez un prix valide (ex : 149).',true); g('f-price').focus(); showToast('Indiquez un prix valide'); return; }
+  const mainImg = admDraft.img || PLACEHOLDER_IMG; // photo optionnelle : visuel "à venir" par défaut
   const oldv=parseFloat(g('f-old').value), ratingv=parseFloat(g('f-rating').value);
   const stockStr=g('f-stock').value.trim();
   const data={
@@ -1614,7 +1617,7 @@ function saveProductFromForm(){
     old:(oldv>0&&oldv>price)?oldv:null,
     tag:g('f-tag').value.trim()||null,
     desc:g('f-desc').value.trim(),
-    img:admDraft.img, model:admDraft.model||admDraft.img, img3:admDraft.img3||undefined,
+    img:mainImg, model:admDraft.model||mainImg, img3:admDraft.img3||undefined,
     rating:(ratingv>0)?Math.min(5,ratingv):undefined,
     reviews:(ratingv>0)?(parseInt(g('f-reviews').value)||0):undefined
   };
